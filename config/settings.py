@@ -1,5 +1,8 @@
 
 from pathlib import Path
+from decouple import config
+import os
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,10 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bhh4^ykmet=oxvu-n)@qh&x1^pswxhvtg^rs(+olwzuce((##&'
-
+#SECRET_KEY = 'django-insecure-bhh4^ykmet=oxvu-n)@qh&x1^pswxhvtg^rs(+olwzuce((##&'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+logging.basicConfig(level=logging.DEBUG)
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -69,9 +73,16 @@ AUTH_USER_MODEL = 'core.User'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        'NAME': 'semoule',
+        'USER': 'semoule_user',
+        'PASSWORD': 'r0RWEWCbc5nGnQFVk8lKqGOPaGILU7aP',
+        'HOST': 'dpg-d74fpebuibrs73ajgm20-a',
+        'PORT': '5432',
+        "OPTIONS": {
+            "sslmode": "require",
+        },
     }
 }
 # Autoriser le frontend Next.js (port 3000 par défaut)
